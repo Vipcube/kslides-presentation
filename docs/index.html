@@ -9,7 +9,7 @@
     
     <link href="revealjs/dist/reveal.css" rel="stylesheet">
     <link href="revealjs/dist/reset.css" rel="stylesheet">
-    <link href="revealjs/dist/theme/solarized.css" id="theme" rel="stylesheet">
+    <link href="revealjs/dist/theme/night.css" id="theme" rel="stylesheet">
     <link href="revealjs/plugin/highlight/monokai.css" id="highlight-theme" rel="stylesheet">
     <link href="revealjs/plugin/copycode/copycode.css" rel="stylesheet">
     
@@ -59,20 +59,13 @@
 			  fill: #258BD2; 
 			}
 			
-			#ghsrc {
-			  font-size: 30px;
-			  text-decoration: underline;
-			}  
-			img[alt=revealjs-image] { 
-			  width: 1000px; 
-			}
 			
 		</style>
     
   </head>
   <body>
     <div class="reveal">
-      <a class="top-left" href="https://github.com/kslides/kslides-template/" target="_blank" title="View presentation source on Github">
+      <a class="top-left" href="https://github.com/Vipcube/kslides-presentation/" target="_blank" title="View presentation source on Github">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
                     
@@ -83,366 +76,12 @@
 			<a class="top-right" href="/" target="_self" title="Go to 1st Slide">&#127968;</a>
 
       <div class="slides">
-        <section data-markdown="" data-transition="zoom">
+        <section data-markdown="" data-transition="zoom" id="main">
           <script type="text/template">
-# Markdown Slide
-## 🍒   
-Press ESC to see presentation overview.
+## 目錄
+ 
+- [Database](/database) 
 </script>
-        </section>
-        
-        <section>
-          
-          <h1>An HTML Slide &#128038;</h1>
-          
-          <p>This is some text</p>
-        </section>
-        
-        <section>
-          <h1>A DSL Slide &#128038;</h1>
-          <p>This is some text</p>
-        </section>
-        
-        <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Code with a markdownSlide     
-```kotlin [1,5|2,4|3]
-fun main() {
-  for (i in (0..5)) {
-    println("Hello World $i")
-  }
-}
-```
-</script>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Slide Definition    
-```kotlin []
-    markdownSlide {
-        val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
-        content {
-            """
-## Code with a markdownSlide     
-```kotlin [1,5|2,4|3]
-${include(githubRawUrl("kslides", "kslides", src), "[3-7]")}
-```
-"""
-        }
-    }
-```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code1+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code1+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
-</script>
-          </section>
-          
-        </section>
-        
-        <section>
-          <section>
-            <h2>Code with a dslSlide</h2>
-            <pre><code class="kotlin" data-line-numbers="1,5|2,4|3" data-noescape="" data-trim="">
-fun main() {
-  for (i in (0..5)) {
-    println("Hello World $i")
-  }
-}
-</code>
-            </pre>
-          </section>
-          
-          <section>
-            <h2>Slide Definition</h2>
-            <pre><code class="kotlin" data-line-numbers="" data-noescape="" data-trim="">
-dslSlide {
-    val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
-    val url = githubRawUrl("kslides", "kslides", src)
-    content {
-        h2 { +"Code with a dslSlide" }
-        // Display lines 3-7 of the url content and highlight lines 1 and 5, 2 and 4, and finally 3
-        codeSnippet {
-            language = "kotlin"
-            highlightPattern = "[1,5|2,4|3]"
-            +include(url, "[3-7]")
-        }
-    }
-}
-</code>
-            </pre>
-            <a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code2+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code2+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
-          </section>
-          
-        </section>
-        
-        <section>
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code without Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
-{
-  "id":"555",
-  "language":"C++",
-  "author":"Bjarne Stroustrup"
-}
-</code>
-            </pre>
-          </section>
-          
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code without Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
-{
-  "id":"444",
-  "language":"C",
-  "author":"Dennis Ritchie"
-},
-{
-  "id":"555",
-  "language":"C++",
-  "author":"Bjarne Stroustrup"
-}
-</code>
-            </pre>
-          </section>
-          
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code without Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
-"books":[
-  {
-    "id":"444",
-    "language":"C",
-    "author":"Dennis Ritchie"
-  },
-  {
-    "id":"555",
-    "language":"C++",
-    "author":"Bjarne Stroustrup"
-  }
-]
-</code>
-            </pre>
-          </section>
-          
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code without Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
-{
-  "books":[
-    {
-      "id":"444",
-      "language":"C",
-      "author":"Dennis Ritchie"
-    },
-    {
-      "id":"555",
-      "language":"C++",
-      "author":"Bjarne Stroustrup"
-    }
-  ]
-}
-</code>
-            </pre>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Slide Definition    
-```kotlin []
-for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
-    dslSlide {
-        autoAnimate = true
-        slideConfig {
-            transition = Transition.NONE
-        }
-        content {
-            h2 { +"Animated Code without Line Numbers" }
-            val file = "src/main/resources/json-example.json"
-            codeSnippet {
-                dataId = "code-animation"
-                language = "json"
-                highlightPattern = "none"
-                +include(file, linePattern = lines)
-            }
-        }
-    }
-}
-```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code3+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code3+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
-</script>
-          </section>
-          
-        </section>
-        
-        <section>
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code with Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
-{
-  "id":"555",
-  "language":"C++",
-  "author":"Bjarne Stroustrup"
-}
-</code>
-            </pre>
-          </section>
-          
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code with Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
-{
-  "id":"444",
-  "language":"C",
-  "author":"Dennis Ritchie"
-},
-{
-  "id":"555",
-  "language":"C++",
-  "author":"Bjarne Stroustrup"
-}
-</code>
-            </pre>
-          </section>
-          
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code with Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="2" data-noescape="" data-trim="">
-"books":[
-  {
-    "id":"444",
-    "language":"C",
-    "author":"Dennis Ritchie"
-  },
-  {
-    "id":"555",
-    "language":"C++",
-    "author":"Bjarne Stroustrup"
-  }
-]
-</code>
-            </pre>
-          </section>
-          
-          <section data-auto-animate="" data-transition="none">
-            <h2>Animated Code with Line Numbers</h2>
-            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="1" data-noescape="" data-trim="">
-{
-  "books":[
-    {
-      "id":"444",
-      "language":"C",
-      "author":"Dennis Ritchie"
-    },
-    {
-      "id":"555",
-      "language":"C++",
-      "author":"Bjarne Stroustrup"
-    }
-  ]
-}
-</code>
-            </pre>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Slide Definition    
-```kotlin []
-for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
-    dslSlide {
-        autoAnimate = true
-        slideConfig {
-            transition = Transition.NONE
-        }
-        content {
-            h2 { +"Animated Code with Line Numbers" }
-            val file = "src/main/resources/json-example.json"
-            codeSnippet {
-                dataId = "code-animation"
-                language = "json"
-                lineOffSet = lines.second
-                +include(file, linePattern = lines.first)
-            }
-        }
-    }
-}
-```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code4+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code4+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
-</script>
-          </section>
-          
-        </section>
-        
-        <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Images 
-   
-![revealjs-image](images/revealjs.png)
-</script>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Slide Definition    
-```kotlin []
-    markdownSlide {
-        // Image size is controlled by css above
-        content {
-            """
-## Images 
-   
-![revealjs-image](images/revealjs.png)
-"""
-        }
-    }
-```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+image+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+image+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
-</script>
-          </section>
-          
-        </section>
-        
-        <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" id="otherslides">
-            <script type="text/template">
-## Other Presentations Defined In Slides.kt   
-<span style="text-align: left; text-indent: 25%;">
-
-[&#128038; greattalk1/ Slides](/greattalk1) 
-
-[&#128038; greattalk1/other.html Slides](/greattalk1/other.html) 
-
-[&#128038; greattalk2.html Slides](/greattalk2.html) 
-</span>
-</script>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Slide Definition    
-```kotlin
-    markdownSlide {
-        id = "otherslides"
-        content {
-            """
-## Other Presentations Defined In Slides.kt   
-<span style="text-align: left; text-indent: 25%;">
-
-[🐦 greattalk1/ Slides](/greattalk1) 
-
-[🐦 greattalk1/other.html Slides](/greattalk1/other.html) 
-
-[🐦 greattalk2.html Slides](/greattalk2.html) 
-</span>
-"""
-        }
-    }
-```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+others+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+others+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
-</script>
-          </section>
-          
         </section>
         
       </div>
@@ -460,7 +99,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
 	<script>
 		Reveal.initialize({
 			history: true,
-			transition: 'concave',
+			transition: 'slide',
 			transitionSpeed: 'slow',
 
 			slideNumber: 'c/t',
