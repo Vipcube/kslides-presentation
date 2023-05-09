@@ -1,5 +1,6 @@
 import com.kslides.*
 import com.pambrose.srcref.Api.srcrefUrl
+import io.ktor.server.util.*
 import kotlinx.html.*
 
 fun main() {
@@ -74,7 +75,7 @@ fun main() {
 
                 content {
                     """
-                    ## 目錄
+                    ### Catalog
                      
                     - [Database](/database) 
                     """
@@ -82,43 +83,107 @@ fun main() {
             }
         }
 
+        // Database
         presentation {
             path = "database"
 
             presentationConfig {
                 topRightHref = "/#/main"
-                topRightTitle = "Go back to main page"
+                topRightTitle = "Go back to catalog page"
                 topRightText = "🔙"
             }
 
             dslSlide {
                 content {
-                    h2 { +"greattalk1/index.html Slides" }
+                    h3 { +"Database Catalog" }
+                    ul {
+                        li {
+                            a {
+                                href = "/database_performance"
+                                +"Database Performance"
+                            }
+                        }
+                    }
                 }
             }
         }
 
-//        presentation {
-//            markdownSlide {
-//                slideConfig {
-//                    transition = Transition.ZOOM
-//                }
-//
-//                content {
-//                    """
-//                    # Catalog of Presentations
-//                    ## 🍒
-//                    Press ESC to see presentation overview.
-//                    """
-//                }
-//            }
-//
-//            dslSlide {
-//                content {
-//                    h1 { +"A DSL Slide 🐦" }
-//                    p { +"This is some text" }
-//                }
-//            }
+        presentation {
+            path = "database_performance"
+
+            presentationConfig {
+                topRightHref = "/database"
+                topRightTitle = "Go back to database catalog page"
+                topRightText = "🔙"
+            }
+
+            dslSlide {
+                content {
+                    h3 { +"Database Performance" }
+                    ul {
+                        li {
+                            +"Index"
+                        }
+                        li {
+                            a {
+                                href = "/database_replication"
+                                +"Replication (Read / Write Splitting)"
+                            }
+                        }
+                        li {
+                            +"Partitioning"
+                        }
+                    }
+                }
+            }
+        }
+
+        presentation {
+            path = "database_replication"
+
+            presentationConfig {
+                topRightHref = "/database_performance"
+                topRightTitle = "Go back to database performance page"
+                topRightText = "🔙"
+            }
+
+            verticalSlides {
+                markdownSlide {
+                    content {
+                        """
+                        ### Database Replication
+
+                        ![database_replication](images/database/database_replication_icon.png)
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### Why need Replication?
+
+                        - Backup Data
+                        - Improve Read Performance
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### What Replication cause?
+
+                        - Big Disk Usage
+                        - Data Eventually Consistency
+                            - Replication Lag
+                            - Concurrent Write
+                        """
+                    }
+                }
+            }
+        }
+
 //
 //            verticalSlides {
 //                // code1 begin
