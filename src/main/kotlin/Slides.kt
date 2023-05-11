@@ -47,7 +47,7 @@ fun main() {
             topRightText = "🏠"
 
             enableMenu = true
-            theme = PresentationTheme.NIGHT
+            theme = PresentationTheme.SOLARIZED
             slideNumber = "c/t"
 
             menuConfig {
@@ -75,9 +75,11 @@ fun main() {
 
                 content {
                     """
-                    ### Catalog
+                    ### Brad Chen
+                    ### 投影片目錄
                      
                     - [Database](/database) 
+                    
                     """
                 }
             }
@@ -95,7 +97,7 @@ fun main() {
 
             dslSlide {
                 content {
-                    h3 { +"Database Catalog" }
+                    h3 { +"Database" }
                     ul {
                         li {
                             a {
@@ -113,7 +115,7 @@ fun main() {
 
             presentationConfig {
                 topRightHref = "/database"
-                topRightTitle = "Go back to database catalog page"
+                topRightTitle = "Go back to database page"
                 topRightText = "🔙"
             }
 
@@ -127,7 +129,7 @@ fun main() {
                         li {
                             a {
                                 href = "/database_replication"
-                                +"Replication (Read / Write Splitting)"
+                                +"Replication"
                             }
                         }
                         li {
@@ -153,7 +155,9 @@ fun main() {
                         """
                         ### Database Replication
 
-                        ![database_replication](images/database/database_replication_icon.png)
+                        ![Master Slave](images/database/database-replication-master-slave.png)
+                        
+                        原作者：[Database Replication](https://homuchen.com/posts/what-and-why-database-replication-advantage-and-disadvantage/)
                         """
                     }
                 }
@@ -161,10 +165,13 @@ fun main() {
                 markdownSlide {
                     content {
                         """
-                        ### Why need Replication?
+                        ### 為何需要 Replication?
 
-                        - Backup Data
-                        - Improve Read Performance
+                        - 資料備份
+                        - 增進讀取效能
+                           - Read throughput
+                           - Read Latency
+                        - 高可用性
                         """
                     }
                 }
@@ -172,12 +179,74 @@ fun main() {
                 markdownSlide {
                     content {
                         """
-                        ### What Replication cause?
+                        ### Replication 缺點
 
-                        - Big Disk Usage
-                        - Data Eventually Consistency
+                        - 磁碟空間增長
+                        - 維護資料庫的複雜度上升
+                        - 資料同步延遲及不一致
                             - Replication Lag
                             - Concurrent Write
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### Read Your Write
+                        
+                        ![Master Slave](images/database/database-replication-read-your-write.png)
+                        
+                        
+                        - 寫入至 Master
+                        - 立即讀取 Slave
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### Monotonic Read
+
+                        ![Master Slave](images/database/database-replication-monotonic-read.png)
+                        
+                        
+                        - 連續讀取，讀到最新的資料後，接著又讀到舊的資料
+                        - 這種情況會發生於不知道是從 Master 還是 Slave 中讀取資料
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### 如何解決
+                        
+                        - 僅從 Master 讀取
+                        - Transactional Read/Write，皆從 Master 讀取: 可以保證 read your write consistency
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### Spring Boot Demo
+                        
+                        - [GitHub Source](https://github.com/Vipcube/Demo-SpringBoot-DB-ReadWriteSplitting)
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    val src = "src/main/java/org/vipcube/spring/demo/config/DataSourceConfig.java"
+                    content {
+                        """
+                        ### Native Read/Write Splitting
+                        ```java [4,5|10|16,17]
+                        ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[65-83]")}
+                        ```
                         """
                     }
                 }
@@ -192,7 +261,7 @@ fun main() {
 //                    content {
 //                        """
 //                        ## Code with a markdownSlide
-//                        ```kotlin [1,5|2,4|3]
+//                        ```kotlin [4,5|10|16]
 //                        ${include(githubRawUrl("kslides", "kslides", src), "[3-7]")}
 //                        ```
 //                        """
