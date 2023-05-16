@@ -1,6 +1,7 @@
 import com.kslides.*
 import com.pambrose.srcref.Api.srcrefUrl
-import io.ktor.server.util.*
+import kotlinx.css.h3
+import kotlinx.css.img
 import kotlinx.html.*
 
 fun main() {
@@ -31,6 +32,11 @@ fun main() {
         css += """
               #githubCorner path { 
                 fill: #258BD2; 
+              }
+              
+              .image75 {
+                width: 75%;
+                height: 75%;
               }
               """
 
@@ -169,9 +175,10 @@ fun main() {
 
                         - 資料備份
                         - 增進讀取效能
-                           - Read throughput
-                           - Read Latency
-                        - 高可用性
+                           - Read throughput： 查詢分散至 N 台機器
+                           - Read Latency： 查詢最近的機器
+                        - 基於以上，可實作讀寫分離
+                        - 資料庫高可用性
                         """
                     }
                 }
@@ -182,49 +189,68 @@ fun main() {
                         ### Replication 缺點
 
                         - 磁碟空間增長
-                        - 維護資料庫的複雜度上升
-                        - 資料同步延遲及不一致
+                        - 需維護資料庫 Cluster，整體複雜度上升
+                        - 資料同步延遲及不一致性
                             - Replication Lag
                             - Concurrent Write
                         """
                     }
                 }
 
-                markdownSlide {
+                dslSlide {
                     content {
-                        """
-                        ### Read Your Write
-                        
-                        ![Master Slave](images/database/database-replication-read-your-write.png)
-                        
-                        
-                        - 寫入至 Master
-                        - 立即讀取 Slave
-                        """
+                        h3 { +"Read Your Write" }
+                        img { src = "images/database/database-replication-read-your-write.png"; classes =
+                            setOf("image75")
+                        }
+                        ul {
+                            li {
+                                +"寫入至 Master"
+                            }
+                            li {
+                                +"立即讀取 Slave"
+                            }
+                        }
+                    }
+                }
+
+                dslSlide {
+                    content {
+                        h3 { +"Monotonic Read" }
+                        img { src = "images/database/database-replication-monotonic-read.png"; classes =
+                            setOf("image75")
+                        }
+                        ul {
+                            li {
+                                +"連續讀取，讀到最新的資料後，接著又讀到舊的資料"
+                            }
+                            li {
+                                +"這種情況會發生於不知道是從 Master 還是 Slave 中讀取資料"
+                            }
+                        }
                     }
                 }
 
                 markdownSlide {
                     content {
                         """
-                        ### Monotonic Read
-
-                        ![Master Slave](images/database/database-replication-monotonic-read.png)
-                        
-                        
-                        - 連續讀取，讀到最新的資料後，接著又讀到舊的資料
-                        - 這種情況會發生於不知道是從 Master 還是 Slave 中讀取資料
-                        """
-                    }
-                }
-
-                markdownSlide {
-                    content {
-                        """
-                        ### 如何解決
+                        ### 如何解決 (連線層)
                         
                         - 僅從 Master 讀取
-                        - Transactional Read/Write，皆從 Master 讀取: 可以保證 read your write consistency
+                        - Transactional Read/Write，皆從 Master 讀取
+                        - 可以保證 read your write consistency
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### 如何達到 (軟體層)
+                        
+                        - Native： 透過程式碼實作，直接指定讀取的資料庫
+                        - Client Dependency： 透過第三方套件，達到功能
+                        - Infra Proxy： 透過 Infra，達到功能
                         """
                     }
                 }
@@ -235,6 +261,31 @@ fun main() {
                         ### Spring Boot Demo
                         
                         - [GitHub Source](https://github.com/Vipcube/Demo-SpringBoot-DB-ReadWriteSplitting)
+                        - 實作採用 JPA 
+                        - 介紹 Native 實作 
+                        - 介紹 Apache ShardingSphere Proxy
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### Apache ShardingSphere
+                        
+                        - [Documents](https://shardingsphere.apache.org/document/current/en/overview/)
+                        - Client Dependency： ShardingSphere-JDBC
+                        - Infra Proxy： ShardingSphere-Proxy
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
+                        ### ShardingSphere-Proxy
+                        
+                        ![Proxy](https://shardingsphere.apache.org/document/current/img/shardingsphere-proxy_v2.png)
                         """
                     }
                 }
@@ -243,7 +294,7 @@ fun main() {
                     val src = "src/main/java/org/vipcube/spring/demo/config/DataSourceConfig.java"
                     content {
                         """
-                        ### Native Read/Write Splitting
+                        ### Native Config
                         ```java [4,5|10|16,17]
                         ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[65-83]")}
                         ```
@@ -252,35 +303,6 @@ fun main() {
                 }
             }
         }
-
-//
-//            verticalSlides {
-//                // code1 begin
-//                markdownSlide {
-//                    val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
-//                    content {
-//                        """
-//                        ## Code with a markdownSlide
-//                        ```kotlin [4,5|10|16]
-//                        ${include(githubRawUrl("kslides", "kslides", src), "[3-7]")}
-//                        ```
-//                        """
-//                    }
-//                }
-//                // code1 end
-//
-//                markdownSlide {
-//                    content {
-//                        """
-//                        ## Slide Definition
-//                        ```kotlin []
-//                        ${include(slides, beginToken = "code1 begin", endToken = "code1 end")}
-//                        ```
-//                        <a id="ghsrc" href="${srcrefLink("code1", true)}" target="_blank">GitHub Source</a>
-//                        """
-//                    }
-//                }
-//            }
 //
 //            verticalSlides {
 //                // code2 begin
