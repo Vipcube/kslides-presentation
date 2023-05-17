@@ -262,8 +262,8 @@ fun main() {
                         
                         - [GitHub Source](https://github.com/Vipcube/Demo-SpringBoot-DB-ReadWriteSplitting)
                         - 實作採用 JPA 
-                        - 介紹 Native 實作 
-                        - 介紹 Apache ShardingSphere Proxy
+                        - Native 實現讀寫分離
+                        - Apache ShardingSphere 實現讀寫分離
                         """
                     }
                 }
@@ -294,7 +294,7 @@ fun main() {
                     val src = "src/main/java/org/vipcube/spring/demo/config/DataSourceConfig.java"
                     content {
                         """
-                        ### Native Config
+                        ### Native 實現讀寫分離
                         ```java [4,5|10|16,17]
                         ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[65-83]")}
                         ```
