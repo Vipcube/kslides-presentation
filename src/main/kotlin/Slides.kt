@@ -200,8 +200,9 @@ fun main() {
                 dslSlide {
                     content {
                         h3 { +"Read Your Write" }
-                        img { src = "images/database/database-replication-read-your-write.png"; classes =
-                            setOf("image75")
+                        img {
+                            src = "images/database/database-replication-read-your-write.png"; classes =
+                                setOf("image75")
                         }
                         ul {
                             li {
@@ -217,8 +218,9 @@ fun main() {
                 dslSlide {
                     content {
                         h3 { +"Monotonic Read" }
-                        img { src = "images/database/database-replication-monotonic-read.png"; classes =
-                            setOf("image75")
+                        img {
+                            src = "images/database/database-replication-monotonic-read.png"; classes =
+                                setOf("image75")
                         }
                         ul {
                             li {
@@ -271,6 +273,62 @@ fun main() {
                 markdownSlide {
                     content {
                         """
+                        ### Native 實現讀寫分離
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    val src = "src/main/resources/application.yml"
+                    content {
+                        """
+                        ### Native YAML Config
+                        ```yaml
+                        ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[31-40]")}
+                        ```
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    val src = "src/main/java/org/vipcube/spring/demo/config/DataSourceConfig.java"
+                    content {
+                        """
+                        ### Native Master DataSource
+                        ```java [1|2|3,9]
+                        ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[43-51]")}
+                        ```
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    val src = "src/main/java/org/vipcube/spring/demo/config/DataSourceConfig.java"
+                    content {
+                        """
+                        ### Native Slave DataSource
+                        ```java [1|2|3,9]
+                        ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[56-63]")}
+                        ```
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    val src = "src/main/java/org/vipcube/spring/demo/config/DataSourceConfig.java"
+                    content {
+                        """
+                        ### Native Dynamic DataSource
+                        ```java [4,5|10|16,17]
+                        ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[65-83]")}
+                        ```
+                        """
+                    }
+                }
+
+                markdownSlide {
+                    content {
+                        """
                         ### Apache ShardingSphere
                         
                         - [Documents](https://shardingsphere.apache.org/document/current/en/overview/)
@@ -291,230 +349,23 @@ fun main() {
                 }
 
                 markdownSlide {
-                    val src = "src/main/java/org/vipcube/spring/demo/config/DataSourceConfig.java"
+                    val src = "src/main/resources/application.yml"
                     content {
                         """
-                        ### Native 實現讀寫分離
-                        ```java [4,5|10|16,17]
-                        ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[65-83]")}
+                        ### ShardingSphere YAML Config
+                        ```yaml
+                        ${include(githubRawUrl("Vipcube", "Demo-SpringBoot-DB-ReadWriteSplitting", src), "[52-56]")}
                         ```
                         """
                     }
                 }
+
+                dslSlide {
+                    content {
+                        h3 { +"Live Demo" }
+                    }
+                }
             }
         }
-//
-//            verticalSlides {
-//                // code2 begin
-//                dslSlide {
-//                    val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
-//                    val url = githubRawUrl("kslides", "kslides", src)
-//                    content {
-//                        h2 { +"Code with a dslSlide" }
-//                        // Display lines 3-7 of the url content and highlight lines 1 and 5, 2 and 4, and finally 3
-//                        codeSnippet {
-//                            language = "kotlin"
-//                            highlightPattern = "[1,5|2,4|3]"
-//                            +include(url, "[3-7]")
-//                        }
-//                    }
-//                }
-//                // code2 end
-//
-//                dslSlide {
-//                    content {
-//                        h2 { +"Slide Definition" }
-//                        codeSnippet {
-//                            language = "kotlin"
-//                            +include(slides, beginToken = "code2 begin", endToken = "code2 end")
-//                        }
-//                        a {
-//                            id = "ghsrc"
-//                            href = srcrefLink("code2")
-//                            target = "_blank"
-//                            +"GitHub Source"
-//                        }
-//                    }
-//                }
-//            }
-//
-//            verticalSlides {
-//                // code3 begin
-//                for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
-//                    dslSlide {
-//                        autoAnimate = true
-//                        slideConfig {
-//                            transition = Transition.NONE
-//                        }
-//                        content {
-//                            h2 { +"Animated Code without Line Numbers" }
-//                            val file = "src/main/resources/json-example.json"
-//                            codeSnippet {
-//                                dataId = "code-animation"
-//                                language = "json"
-//                                highlightPattern = "none"
-//                                +include(file, linePattern = lines)
-//                            }
-//                        }
-//                    }
-//                }
-//                // code3 end
-//
-//                markdownSlide {
-//                    content {
-//                        """
-//                        ## Slide Definition
-//                        ```kotlin []
-//                        ${include(slides, beginToken = "code3 begin", endToken = "code3 end")}
-//                        ```
-//                        <a id="ghsrc" href="${srcrefLink("code3", true)}" target="_blank">GitHub Source</a>
-//                        """
-//                    }
-//                }
-//            }
-//
-//            verticalSlides {
-//                // code4 begin
-//                for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
-//                    dslSlide {
-//                        autoAnimate = true
-//                        slideConfig {
-//                            transition = Transition.NONE
-//                        }
-//                        content {
-//                            h2 { +"Animated Code with Line Numbers" }
-//                            val file = "src/main/resources/json-example.json"
-//                            codeSnippet {
-//                                dataId = "code-animation"
-//                                language = "json"
-//                                lineOffSet = lines.second
-//                                +include(file, linePattern = lines.first)
-//                            }
-//                        }
-//                    }
-//                }
-//                // code4 end
-//
-//                markdownSlide {
-//                    content {
-//                        """
-//                        ## Slide Definition
-//                        ```kotlin []
-//                        ${include(slides, beginToken = "code4 begin", endToken = "code4 end")}
-//                        ```
-//                        <a id="ghsrc" href="${srcrefLink("code4", true)}" target="_blank">GitHub Source</a>
-//                        """
-//                    }
-//                }
-//            }
-//
-//            verticalSlides {
-//                // image begin
-//                markdownSlide {
-//                    // Image size is controlled by css above
-//                    content {
-//                        """
-//                        ## Images
-//
-//                        ![revealjs-image](images/revealjs.png)
-//                        """
-//                    }
-//                }
-//                // image end
-//
-//                markdownSlide {
-//                    content {
-//                        """
-//                        ## Slide Definition
-//                        ```kotlin []
-//                        ${include(slides, beginToken = "image begin", endToken = "image end")}
-//                        ```
-//                        <a id="ghsrc" href="${srcrefLink("image", true)}" target="_blank">GitHub Source</a>
-//                        """
-//                    }
-//                }
-//            }
-//
-//            verticalSlides {
-//                // others begin
-//                markdownSlide {
-//                    id = "otherslides"
-//                    content {
-//                        """
-//                        ## Other Presentations Defined In Slides.kt
-//                        <span style="text-align: left; text-indent: 25%;">
-//
-//                        [🐦 greattalk1/ Slides](/greattalk1)
-//
-//                        [🐦 greattalk1/other.html Slides](/greattalk1/other.html)
-//
-//                        [🐦 greattalk2.html Slides](/greattalk2.html)
-//                        </span>
-//                        """
-//                    }
-//                }
-//                // others end
-//
-//                markdownSlide {
-//                    content {
-//                        """
-//                        ## Slide Definition
-//                        ```kotlin
-//                        ${include(slides, beginToken = "others begin", endToken = "others end")}
-//                        ```
-//                        <a id="ghsrc" href="${srcrefLink("others", true)}" target="_blank">GitHub Source</a>
-//                        """
-//                    }
-//                }
-//            }
-//        }
-//
-//        presentation {
-//            path = "greattalk1"
-//
-//            presentationConfig {
-//                topRightHref = "/#/otherslides"
-//                topRightTitle = "Go back to main presentation"
-//                topRightText = "🔙"
-//            }
-//
-//            dslSlide {
-//                content {
-//                    h2 { +"greattalk1/index.html Slides" }
-//                }
-//            }
-//        }
-//
-//        presentation {
-//            path = "greattalk1/other.html"
-//
-//            presentationConfig {
-//                topRightHref = "/#/otherslides"
-//                topRightTitle = "Go back to main presentation"
-//                topRightText = "🔙"
-//            }
-//
-//            dslSlide {
-//                content {
-//                    h2 { +"greattalk1/other.html slides" }
-//                }
-//            }
-//        }
-//
-//        presentation {
-//            path = "greattalk2.html"
-//
-//            presentationConfig {
-//                topRightHref = "/#/otherslides"
-//                topRightTitle = "Go back to main presentation"
-//                topRightText = "🔙"
-//            }
-//
-//            dslSlide {
-//                content {
-//                    h2 { +"greattalk2.html slides" }
-//                }
-//            }
-//        }
     }
 }

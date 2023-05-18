@@ -168,25 +168,64 @@
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-### Apache ShardingSphere
-
-- [Documents](https://shardingsphere.apache.org/document/current/en/overview/)
-- Client Dependency： ShardingSphere-JDBC
-- Infra Proxy： ShardingSphere-Proxy
-</script>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-### ShardingSphere-Proxy
-
-![Proxy](https://shardingsphere.apache.org/document/current/img/shardingsphere-proxy_v2.png)
-</script>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
 ### Native 實現讀寫分離
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### Native YAML Config
+```yaml
+datasource:
+  driver-class-name: org.postgresql.Driver
+  master:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123456
+  slave:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: 123456
+```
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### Native Master DataSource
+```java [1|2|3,9]
+@Bean(destroyMethod = "close", name="master")
+@Primary
+public HikariDataSource masterDataSource() {
+    var masterDataSource = abstractDataSource();
+    masterDataSource.setJdbcUrl(props.getProperty("datasource.master.url"));
+    masterDataSource.setUsername(props.getProperty("datasource.master.username"));
+    masterDataSource.setPassword(props.getProperty("datasource.master.password"));
+    return masterDataSource;
+}
+```
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### Native Slave DataSource
+```java [1|2|3,9]
+@Bean(destroyMethod = "close", name="slave")
+public HikariDataSource slaveDataSource() {
+    var slaveDataSource = abstractDataSource();
+    slaveDataSource.setJdbcUrl(props.getProperty("datasource.slave.url"));
+    slaveDataSource.setUsername(props.getProperty("datasource.slave.username"));
+    slaveDataSource.setPassword(props.getProperty("datasource.slave.password"));
+    return slaveDataSource;
+}
+```
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### Native Dynamic DataSource
 ```java [4,5|10|16,17]
 @Bean(name="dynamicDataSource")
 public DataSource dynamicDataSource() {
@@ -207,6 +246,37 @@ public DataSource dynamicDataSource() {
     dynamicDataSource.setTargetDataSources(targetDataSources);
     return dynamicDataSource;
 }
+```
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### Apache ShardingSphere
+
+- [Documents](https://shardingsphere.apache.org/document/current/en/overview/)
+- Client Dependency： ShardingSphere-JDBC
+- Infra Proxy： ShardingSphere-Proxy
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### ShardingSphere-Proxy
+
+![Proxy](https://shardingsphere.apache.org/document/current/img/shardingsphere-proxy_v2.png)
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### ShardingSphere YAML Config
+```yaml
+datasource:
+  driver-class-name: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:3307/postgres_rw
+  username: root
+  password: test123456
 ```
 </script>
           </section>
