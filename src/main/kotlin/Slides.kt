@@ -6,19 +6,6 @@ import kotlinx.html.*
 
 fun main() {
     val slides = "src/main/kotlin/Slides.kt"
-
-    fun srcrefLink(token: String, escapeHtml4: Boolean = false) =
-        srcrefUrl(
-            account = "kslides",
-            repo = "kslides-template",
-            path = slides,
-            beginRegex = "\\s+// $token begin",
-            beginOffset = 1,
-            endRegex = "\\s+// $token end",
-            endOffset = -1,
-            escapeHtml4 = escapeHtml4,
-        )
-
     kslides {
         output {
             // Write the presentation's html files to /docs for GitHub Pages or netlify.com
