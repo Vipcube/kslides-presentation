@@ -5,7 +5,6 @@ import kotlinx.css.img
 import kotlinx.html.*
 
 fun main() {
-    val slides = "src/main/kotlin/Slides.kt"
     kslides {
         output {
             // Write the presentation's html files to /docs for GitHub Pages or netlify.com
@@ -126,7 +125,10 @@ fun main() {
                             }
                         }
                         li {
-                            +"Partitioning"
+                            a {
+                                href = "/database_partitioning"
+                                +"Partitioning"
+                            }
                         }
                     }
                 }
@@ -350,6 +352,29 @@ fun main() {
                 dslSlide {
                     content {
                         h3 { +"Live Demo" }
+                    }
+                }
+            }
+        }
+
+        presentation {
+            path = "database_partitioning"
+
+            presentationConfig {
+                topRightHref = "/database_performance"
+                topRightTitle = "Go back to database performance page"
+                topRightText = "🔙"
+            }
+
+            verticalSlides {
+                markdownSlide {
+                    content {
+                        """
+                        ### Database Partitioning
+
+                        - Horizontal Partitioning: Sharding
+                        - Vertical Partitioning: Increase Service
+                        """
                     }
                 }
             }
