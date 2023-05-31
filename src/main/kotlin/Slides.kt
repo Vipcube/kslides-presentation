@@ -224,7 +224,7 @@ fun main() {
                 markdownSlide {
                     content {
                         """
-                        ### 如何解決 (連線層)
+                        ### 如何解決讀寫一致性
                         
                         - Master Pinning： 
                           - 僅從 Master 讀取
@@ -239,11 +239,11 @@ fun main() {
                 markdownSlide {
                     content {
                         """
-                        ### 如何達到 (軟體層)
+                        ### 如何達到讀寫分離
                         
                         - Native： 透過程式碼實作，直接指定讀取資料庫
                         - Client Dependency： 透過第三方套件，達到功能
-                        - Infra Proxy： 透過 Infra，達到功能
+                        - Infra Middleware： 透過外部 Infra，達到功能
                         """
                     }
                 }
