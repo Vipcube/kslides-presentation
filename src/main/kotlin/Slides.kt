@@ -166,8 +166,7 @@ fun main() {
                         - 增進讀取效能
                            - Read throughput： 查詢分散至 N 台機器
                            - Read Latency： 查詢最近的機器
-                        - 基於以上，可實作讀寫分離
-                        - 資料庫高可用性
+                        - 資料庫高可用性，避免單點故障
                         """
                     }
                 }
@@ -178,9 +177,9 @@ fun main() {
                         ### Replication 缺點
 
                         - 磁碟空間增長
-                        - 需維護資料庫 Cluster，整體複雜度上升
+                        - 需維護資料庫 Cluster，系統複雜度上升
                         - 資料同步延遲及不一致性
-                            - Replication Lag
+                            - Replication Lag，造成讀寫一致性
                             - Concurrent Write
                         """
                     }
@@ -188,9 +187,9 @@ fun main() {
 
                 dslSlide {
                     content {
-                        h3 { +"Read Your Write" }
+                        h3 { +"Read Your Write (讀寫一致性)" }
                         img {
-                            src = "images/database/database-replication-read-your-write.png"; classes =
+                            src = "images/database/database-replication-read-your-write-2.png"; classes =
                                 setOf("image75")
                         }
                         ul {
@@ -198,7 +197,7 @@ fun main() {
                                 +"寫入至 Master"
                             }
                             li {
-                                +"立即讀取 Slave"
+                                +"立即至 Slave 讀取，取不到值"
                             }
                         }
                     }
@@ -206,17 +205,17 @@ fun main() {
 
                 dslSlide {
                     content {
-                        h3 { +"Monotonic Read" }
+                        h3 { +"Monotonic Read (資料倒退)" }
                         img {
                             src = "images/database/database-replication-monotonic-read.png"; classes =
                                 setOf("image75")
                         }
                         ul {
                             li {
-                                +"連續讀取，讀到最新的資料後，接著又讀到舊的資料"
+                                +"連續讀取，讀到新資料後，接著又讀到舊資料"
                             }
                             li {
-                                +"這種情況會發生於不知道是從 Master 還是 Slave 中讀取資料"
+                                +"會發生於不知是從 Master 還是 Slave 中讀取資料"
                             }
                         }
                     }
@@ -227,9 +226,12 @@ fun main() {
                         """
                         ### 如何解決 (連線層)
                         
-                        - 僅從 Master 讀取
-                        - Transactional Read/Write，皆從 Master 讀取
-                        - 可以保證 read your write consistency
+                        - Master Pinning： 
+                          - 僅從 Master 讀取
+                        - Fragmented Pinning： 
+                          - 寫入後短時間內，固定至 Master
+                        - Master Fallback： 
+                          - Slave 無法讀取時，切換至 Master
                         """
                     }
                 }
@@ -239,7 +241,7 @@ fun main() {
                         """
                         ### 如何達到 (軟體層)
                         
-                        - Native： 透過程式碼實作，直接指定讀取的資料庫
+                        - Native： 透過程式碼實作，直接指定讀取資料庫
                         - Client Dependency： 透過第三方套件，達到功能
                         - Infra Proxy： 透過 Infra，達到功能
                         """
