@@ -178,6 +178,10 @@ fun main() {
 
                         - 磁碟空間增長
                         - 需維護資料庫 Cluster，系統複雜度上升
+                            - 高可用性導致維運成本上升
+                            - 集群腦裂
+                            - Transaction 管理
+                            - Flush DB Log，寫入性能降低
                         - 資料同步延遲及不一致性
                             - Replication Lag，造成讀寫一致性
                             - Concurrent Write
@@ -371,6 +375,17 @@ fun main() {
             }
 
             verticalSlides {
+                markdownSlide {
+                    content {
+                        """
+                        ### Database Partitioning
+
+                        - Horizontal Partitioning: Sharding
+                        - Vertical Partitioning: Increase Service
+                        """
+                    }
+                }
+
                 markdownSlide {
                     content {
                         """
