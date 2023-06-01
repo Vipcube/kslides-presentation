@@ -244,6 +244,8 @@ fun main() {
                         - Native： 透過程式碼實作，直接指定讀取資料庫
                         - Client Dependency： 透過第三方套件，達到功能
                         - Infra Middleware： 透過外部 Infra，達到功能
+                          - Apache ShardingSphere
+                          - Vitess: YouTube, Google
                         """
                     }
                 }
