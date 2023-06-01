@@ -389,10 +389,22 @@ fun main() {
                 markdownSlide {
                     content {
                         """
-                        ### Database Partitioning
+                        ### 方案美好，成本先行
+                        
+                        - 實屬資料量過大的無奈之舉
+                        - 其隱含成本非常可觀
+                        """
+                    }
+                }
 
-                        - Horizontal Partitioning: Sharding
-                        - Vertical Partitioning: Increase Service
+                markdownSlide {
+                    content {
+                        """
+                        ### 應用限制
+
+                        - 對應用層+DB 層侵入性龐大
+                        - SQL 失去 JOIN、子查詢等
+                        - 僅能實現 Local Index，Primary Key, Foreign Key 無法實現
                         """
                     }
                 }

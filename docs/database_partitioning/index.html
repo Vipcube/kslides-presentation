@@ -93,10 +93,20 @@
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-### Database Partitioning
+### 方案美好，成本先行
 
-- Horizontal Partitioning: Sharding
-- Vertical Partitioning: Increase Service
+- 實屬資料量過大的無奈之舉
+- 其隱含成本非常可觀
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+### 應用限制
+
+- 對應用層+DB 層侵入性龐大
+- SQL 失去 JOIN、子查詢等
+- 僅能實現 Local Index，Primary Key, Foreign Key 無法實現
 </script>
           </section>
           
